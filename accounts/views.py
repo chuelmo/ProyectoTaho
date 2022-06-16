@@ -24,7 +24,7 @@ def login_view(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
-                return redirect('CategoriesAndSizes:file_list')
+                return render(request, 'home.html')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})

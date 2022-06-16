@@ -14,7 +14,7 @@
                                 maxlength="50" required>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Categoría</button>
                         </div>
                     </form>
                 </div>
@@ -29,7 +29,7 @@
                             <th>#</th>
                             <th>id</th>
                             <th>Nombre</th>
-                            <th colspan="2">Opciones</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,8 +38,11 @@
                             <td>{{forloop.counter}}</td>
                             <td>{{c.id}}</td>
                             <td>{{c.description}}</td>
-                            <td><a href="edit/{{c.id}}" class="btn btn-info">Editar</a></td>
-                            <td><a href="del/{{c.id}}" class="btn btn-danger btnEliminar">Eliminar</a></td>
+                            <td>
+                                <a href="edit/{{c.id}}" class="btn btn-info">Editar</a>
+                                <a href="del/{{c.id}}" class="btn btn-danger btnEliminar">Eliminar</a>
+                                <a href="../talles/{{c.id}}" class="btn btn-info">Ver Talles</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
