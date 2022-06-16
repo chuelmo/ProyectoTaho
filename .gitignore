@@ -1,7 +1,6 @@
 # specific for my proyect
 staticfiles
 db.sqlite3
-**/migrations
 **/media/files/
 
 # Byte-compiled / optimized / DLL files
