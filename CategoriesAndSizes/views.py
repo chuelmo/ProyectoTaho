@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, Http404
+from weasyprint import HTML
 import os
 from .forms import FileUploadModelForm
 from .models import SizeCategory, Size, File
@@ -129,3 +132,28 @@ def model_delete(request):
             os.remove(fileName)
     records.delete()
     return render(request, 'file_list.html', {'files': records})
+
+@login_required(login_url="/accounts/login/")
+def export_pdf_categories(request):
+    categories = SizeCategory.objects.all()
+    context = {}
+    for c in categories:
+        context[c.id] = c.description
+    html = render_to_string("report-pdf.html", {'context': context})
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = "inline; report.pdf"
+    HTML(string=html).write_pdf(response)
+    return response
+
+@login_required(login_url="/accounts/login/")
+def export_pdf_sizes(request, id):
+    categoria = SizeCategory.objects.get(id=id)
+    sizes = SizeCategory.objects.get(id=id).size_set.all()
+    talles = {}
+    for size in sizes:
+        talles[size.id] = size.name
+    html = render_to_string("report-talles.html", {'categoria': categoria.description, 'sizes': talles})
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = "inline; report.pdf"
+    HTML(string=html).write_pdf(response)
+    return response

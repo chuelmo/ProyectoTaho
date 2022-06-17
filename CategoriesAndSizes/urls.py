@@ -19,4 +19,6 @@ urlpatterns = [
     re_path(r'^upload/$', views.model_form_upload, name='model_form_upload'),
     re_path(r'^delete/$', views.model_delete, name='model_delete'),
     re_path(r'^download/(?P<id>.*)/$', views.file_response_download, name='file_download'),
+    path('pdf/', views.export_pdf_categories, name="export-pdf_categories"),
+    path('export_pdf_sizes/<id>', views.export_pdf_sizes, name='export_pdf_sizes'),
 ]
